@@ -64,6 +64,11 @@ RELNUM=`uname -r |
 ARCH=`uname -m`
 FETCHDIR=${RELNUM}/${ARCH}
 
+# These three following variables should be validated.  I am a
+# being very bad and letting any failure go through, relying on
+# /usr/sbin/freebsd-update to complain.  I am also assuming that
+# is what is called next... also bad.
+# Also, if either of the first two fail your system is already FUBAR.
 TEMPDIR_PROBE=`mktemp -d`
 FREEBSD_UPDATE_DIR="/var/db/freebsd-update"
 SERVERNAME=`host -t srv _http._tcp.update.freebsd.org | sort -R | head -1 | awk 'gsub(/.$/,"") {print $NF}'`
@@ -92,6 +97,17 @@ obtain_tags () {
 	fi
 }
 
+
+# History, near relevant code.
+# Bug:
+#   https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=258863
+# Progressioin of proposed for freebsd-update:
+#   https://reviews.freebsd.org/D32570 
+# probe_tags is not 100% verbatim, but effectively the same test & result,
+# the technique is the same (I wrote them, I vouch for that).
+#
+# Why "probe"? 
+# "probe_tags" is comparing tags by "probing" freebsd-updates's files.
 probe_tags () {
 	if [ -f $TEMPDIR_PROBE/tag.probe -a -f ${FREEBSD_UPDATE_DIR}/tag ] && \
 	    cmp -s $TEMPDIR_PROBE/tag.probe ${FREEBSD_UPDATE_DIR}/tag; then

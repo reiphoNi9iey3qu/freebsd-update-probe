@@ -32,6 +32,16 @@ exit 0, PASS, no freebsd-update needed.
 exit 1, FAIL, freebsd-update suggested.
 ```
 
+# Deploy examples:
+```
+fetch https://raw.githubusercontent.com/-------/freebsd-update-probe/main/freebsd-update-probe.sh -o /usr/local/bin/freebsd-update-probe.sh
+chmod 700 /usr/local/bin/freebsd-update-probe.sh
+# Or
+fetch https://raw.githubusercontent.com/-------/freebsd-update-probe/main/freebsd-update-probe.sh -o freebsd-update-probe.sh
+scp freebsd-update-probe.sh root@server.example.com:/usr/local/bin/
+ssh root@server.example.com "chmod 700 /usr/local/bin/freebsd-update-probe.sh"
+```
+
 # Before (on Raspberry Pi 3B): 1m32s
 
 ```

@@ -23,13 +23,13 @@ freebsd-update-probe.sh || mail_sysadmin_to_manually_update
   is produced by /usr/sbin/freebsd-update
 * untested inside FreeBSD Jail environments
 * Written/tested on FreeBSD 13.0 (12.2 reported working)
-Version: 20220331 ### https://github.com/-------/freebsd-update-probe 
+Version: 20220407 ### https://github.com/-------/freebsd-update-probe 
 ```
 
 # Exit codes
 ```
-exit 0, PASS, no freebsd-update needed.
-exit 1, FAIL, freebsd-update suggested.
+exit 0, MATCH, no freebsd-update needed.
+exit 1, CHECK, freebsd-update suggested.
 ```
 
 # Deploy examples:
@@ -65,8 +65,9 @@ Sat Mar 26 08:42:32 NZDT 2022
 ```
 # date ; time /root/freebsd-update-probe.sh || freebsd-update fetch install ; date
 Sat Mar 26 08:43:48 NZDT 2022
-probe tag file: PASS, no freebsd-update needed.
+probe tag file: MATCH, no freebsd-update needed.
 0.095u 0.103s 0:00.51 37.2%     96+171k 0+0io 0pf+0w
 Sat Mar 26 08:43:48 NZDT 2022
+(minor edit: MATCH was PASS, edited for consistent README)
 ```
 

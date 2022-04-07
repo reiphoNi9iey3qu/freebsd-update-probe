@@ -48,7 +48,7 @@ freebsd-update-probe.sh || mail_sysadmin_to_manually_update
   is produced by /usr/sbin/freebsd-update
 * untested inside FreeBSD Jail environments
 * Written/tested on FreeBSD 13.0 (12.2 reported working)
-Version: 20220331 ### https://github.com/-------/freebsd-update-probe 
+Version: 20220407 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
 fi
@@ -75,7 +75,7 @@ SERVERNAME=`host -t srv _http._tcp.update.freebsd.org | sort -R | head -1 | awk 
 
 exit_1_clean () {
 	rm -rf $TEMPDIR_PROBE
-	echo "probe tag file: FAIL, freebsd-update suggested."
+	echo "probe tag file: CHECK, freebsd-update suggested."
 	exit 1
 }
 
@@ -112,7 +112,7 @@ probe_tags () {
 	if [ -f $TEMPDIR_PROBE/tag.probe -a -f ${FREEBSD_UPDATE_DIR}/tag ] && \
 	    cmp -s $TEMPDIR_PROBE/tag.probe ${FREEBSD_UPDATE_DIR}/tag; then
 		rm -rf $TEMPDIR_PROBE
-		echo "probe tag file: PASS, no freebsd-update needed."
+		echo "probe tag file: MATCH, no freebsd-update needed."
 		exit 0
 	else
 		exit_1_clean

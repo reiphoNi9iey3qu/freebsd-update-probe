@@ -43,12 +43,11 @@ No arguments.  Example usage:
 freebsd-update-probe.sh || freebsd-update fetch [install]
   or you could
 freebsd-update-probe.sh || mail_sysadmin_to_manually_update
-* if /usr/sbin/freebsd-update exit code !=0 be sure to run that manually
-  until does exit 0 because the tag assessed by freebsd-update-probe.sh
-  is produced by /usr/sbin/freebsd-update
+* When /usr/sbin/freebsd-update is run you *must* ensure it completes
+  successfully (exit 0) as freebsd-update-probe.sh relies on it.
 * Written/tested on FreeBSD 13.0 (12.2 reported working)
 * Likely to be unsuitable for FreeBSD Jail environments
-Version: 20220407 ### https://github.com/-------/freebsd-update-probe 
+Version: 20220429 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
 fi

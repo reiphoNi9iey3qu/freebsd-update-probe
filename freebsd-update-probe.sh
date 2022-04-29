@@ -40,14 +40,16 @@
 if [ "$#" -ne 0 ] ; then
 	cat << EOF_usage
 No arguments.  Example usage:
-freebsd-update-probe.sh || freebsd-update fetch [install]
-  or you could
-freebsd-update-probe.sh || mail_sysadmin_to_manually_update
+# freebsd-update-probe.sh || freebsd-update fetch [install]
+# freebsd-update-probe.sh || mail_sysadmin_to_manually_update
+Notes:
 * When /usr/sbin/freebsd-update is run you *must* ensure it completes
   successfully (exit 0) as freebsd-update-probe.sh relies on it.
-* Written/tested on FreeBSD 13.0 (12.2 reported working)
-* Likely to be unsuitable for FreeBSD Jail environments
-Version: 20220429 ### https://github.com/-------/freebsd-update-probe 
+* Tested on FreeBSD 13.1, 13.0 (12.2 reported working)
+* Not for FreeBSD Jail environments
+* Not for non-RELEASE FreeBSD versions
+* Not for detecting new RELEASE versions
+Version: 20220518 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
 fi
@@ -97,16 +99,13 @@ obtain_tags () {
 }
 
 
-# History, near relevant code.
+# History, near the most relevant code.
 # Bug:
 #   https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=258863
-# Progressioin of what was proposed for freebsd-update:
+# History of what I proposed for freebsd-update (same technique):
 #   https://reviews.freebsd.org/D32570 
-# probe_tags is not 100% verbatim, but effectively the same test & result,
-# the technique is the same (I wrote them, I vouch for that).
 #
-# Why "probe"? 
-# "probe_tags" is comparing tags by "probing" freebsd-updates's files.
+# Why "probe"? It is comparing by "probing" freebsd-updates's files.
 probe_tags () {
 	if [ -f $TEMPDIR_PROBE/tag.probe -a -f ${FREEBSD_UPDATE_DIR}/tag ] && \
 	    cmp -s $TEMPDIR_PROBE/tag.probe ${FREEBSD_UPDATE_DIR}/tag; then

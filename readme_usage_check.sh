@@ -1,4 +1,4 @@
 #!/bin/bash
 
-diff <(cat README.md | grep -A99 ^No\ arguments | grep -B99 ^Version) <(cat freebsd-update-probe.sh | grep -A99 ^No\ arguments | grep -B99 ^Version)
+diff <(grep -A99 ^No\ arguments README.md | grep -B99 ^Version) <(grep -A99 ^No\ arguments freebsd-update-probe.sh | grep -B99 ^Version)
 

@@ -46,8 +46,8 @@ freebsd-update-probe.sh || mail_sysadmin_to_manually_update
 * if /usr/sbin/freebsd-update exit code !=0 be sure to run that manually
   until does exit 0 because the tag assessed by freebsd-update-probe.sh
   is produced by /usr/sbin/freebsd-update
-* untested inside FreeBSD Jail environments
 * Written/tested on FreeBSD 13.0 (12.2 reported working)
+* Likely to be unsuitable for FreeBSD Jail environments
 Version: 20220407 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
@@ -101,7 +101,7 @@ obtain_tags () {
 # History, near relevant code.
 # Bug:
 #   https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=258863
-# Progressioin of proposed for freebsd-update:
+# Progressioin of what was proposed for freebsd-update:
 #   https://reviews.freebsd.org/D32570 
 # probe_tags is not 100% verbatim, but effectively the same test & result,
 # the technique is the same (I wrote them, I vouch for that).
@@ -121,6 +121,7 @@ probe_tags () {
 
 # Nice to group things with regard to their purpose, it could easily
 # be a script without using functions.
+# The only "exit 0" occurs inside probe_tags.
 obtain_tags
 probe_tags
 

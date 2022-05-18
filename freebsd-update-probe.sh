@@ -54,6 +54,15 @@ EOF_usage
 	exit 1
 fi
 
+if ! [ `freebsd-version | grep '\-RELEASE$' | wc -l` = 1 ]; then
+	echo "freebsd-update-probe.sh \"compatability\":"
+	echo "`freebsd-version` is not a RELEASE version."
+	echo "FreeBSD RELEASE 13.0 & 13.1 (tested)"
+	echo "FreeBSD RELEASE 12.2 (reported working)"
+	echo "Feel free to edit this script to proceed but you're on your own."
+	exit 1
+fi
+
 # Paragraph of freebsd-update origin
 # Generate release number.  The s/SECURITY/RELEASE/ bit exists
 # to provide an upgrade path for FreeBSD Update 1.x users, since
@@ -65,15 +74,13 @@ RELNUM=`uname -r |
 ARCH=`uname -m`
 FETCHDIR=${RELNUM}/${ARCH}
 
-# These three following variables should be validated.  I am a
-# being very bad and letting any failure go through, relying on
-# /usr/sbin/freebsd-update to complain.  I am also assuming that
-# is what is called next... also bad.
-# Also, if either of the first two fail your system is already FUBAR.
 TEMPDIR_PROBE=`mktemp -d`
 FREEBSD_UPDATE_DIR="/var/db/freebsd-update"
 SERVERNAME=`host -t srv _http._tcp.update.freebsd.org | sort -R | head -1 | awk 'gsub(/.$/,"") {print $NF}'`
 
+# freebsd-update-probe.sh is not trying to reinvent the wheel.
+# /usr/sbin/freebsd-update, when run subsequently, will provide its
+# diagnostic info *IF* that is necessary.
 exit_1_clean () {
 	rm -rf $TEMPDIR_PROBE
 	echo "probe tag file: CHECK, freebsd-update suggested."

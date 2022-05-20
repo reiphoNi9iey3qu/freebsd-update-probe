@@ -66,9 +66,9 @@ scp freebsd-update-probe.sh root@server.example.com:/usr/local/bin/
 ssh root@server.example.com "chmod 700 /usr/local/bin/freebsd-update-probe.sh"
 ```
 
-# Demonstration 2022-03-26: Raspberry Pi 3B
+# Demonstration #1 with Slow IO. 
+## Raspberry Pi 3B:  1m32s down to sub 1s.
 ### Before (Raspberry Pi 3B): 1m32s
-
 ```
 # date ; time freebsd-update fetch install ; date
 Sat Mar 26 08:41:00 NZDT 2022
@@ -95,13 +95,8 @@ Sat Mar 26 08:43:48 NZDT 2022
 ```
 
 
-# Demonstration 2022-05-17: SSD backed VM
-```
-Highlights how much IO "speed" impacts /usr/sbin/freebsd-update
-(compare the "Before" here with Raspberry Pi 3B "Before" above)
-Using /usr/bin/time as it is easier to read.
-```
-
+# Demonstration #2 with Fast IO. 
+## SSD backed VM.  ~11s down to sub 1s
 ### Before (SSD backed VM): ~11s
 ```
 root@-------:~ # /usr/bin/time freebsd-update fetch install
@@ -122,4 +117,13 @@ No updates are available to install.
 root@-------:~ # /usr/bin/time freebsd-update-probe.sh || /usr/bin/time freebsd-update fetch install
 probe tag file: MATCH, no freebsd-update needed.
         0.40 real         0.04 user         0.02 sys
+```
+
+
+# Important
+```
+This is not only a reduction in time, freebsd-update-probe.sh avoids
+the processing and IO spike that would otherwise occur for the duration.
+
+Finally, I hope you find freebsd-update-probe.sh useful.
 ```

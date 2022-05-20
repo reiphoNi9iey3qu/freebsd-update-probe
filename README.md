@@ -1,6 +1,6 @@
 # freebsd-update-probe.sh
 
-## Efficiently detect point level updates for /usr/sbin/freebsd-update
+### Efficiently detect point level updates for /usr/sbin/freebsd-update
 
 ### Summary
 ```
@@ -122,8 +122,8 @@ probe tag file: MATCH, no freebsd-update needed.
 
 # Important
 ```
-This is not only a reduction in time, freebsd-update-probe.sh avoids
-the processing and IO spike that would otherwise occur for the duration.
+This is not only a reduction in time, freebsd-update-probe.sh bypasses
+the processing and IO spike that would otherwise occur for that duration.
 
 Finally, I hope you find freebsd-update-probe.sh useful.
 ```

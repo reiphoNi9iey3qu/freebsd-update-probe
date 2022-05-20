@@ -36,6 +36,11 @@
 ### freebsd-update-probe.sh ###
 ###############################
 
+USER=`/usr/bin/whoami`
+if ! [ "$USER" = "root" ]; then
+   echo "Must be run by root"
+   exit 1
+fi
 
 if [ "$#" -ne 0 ] ; then
 	cat << EOF_usage
@@ -49,7 +54,7 @@ Notes:
 * Not for FreeBSD Jail environments
 * Not for non-RELEASE FreeBSD versions
 * Not for detecting new RELEASE versions
-Version: 20220518 ### https://github.com/-------/freebsd-update-probe 
+Version: 20220521 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
 fi

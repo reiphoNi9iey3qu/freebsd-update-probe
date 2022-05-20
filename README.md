@@ -47,7 +47,7 @@ Notes:
 * Not for FreeBSD Jail environments
 * Not for non-RELEASE FreeBSD versions
 * Not for detecting new RELEASE versions
-Version: 20220518 ### https://github.com/-------/freebsd-update-probe 
+Version: 20220521 ### https://github.com/-------/freebsd-update-probe 
 ```
 
 # Exit codes

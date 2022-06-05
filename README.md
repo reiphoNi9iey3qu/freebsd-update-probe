@@ -11,6 +11,9 @@ The IO intensive phase of /usr/sbin/freebsd-update should be reserved
 for when point updates are available and freebsd-update-probe.sh was
 created to achieve this.  See "Demonstration" sections below.
 
+freebsd-update-probe.sh was originally pushed to GitHub March 24 2022,
+there have been a few minor improvements since.
+
 freebsd-update-probe.sh provides a work around for FreeBSD bug:
   https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=258863
 ```

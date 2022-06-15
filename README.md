@@ -1,6 +1,6 @@
 # freebsd-update-probe.sh
 
-### Efficiently detect point level updates for /usr/sbin/freebsd-update
+### Efficiently detect updates for /usr/sbin/freebsd-update
 
 ### Summary
 ```
@@ -8,8 +8,8 @@ freebsd-update-probe.sh efficiently assesses the necessity of subsequently
 running: /usr/sbin/freebsd-update fetch [install] 
 
 The IO intensive phase of /usr/sbin/freebsd-update should be reserved
-for when point updates are available and freebsd-update-probe.sh was
-created to achieve this.  See "Demonstration" sections below.
+for when updates are available and freebsd-update-probe.sh was created
+to achieve this.
 
 freebsd-update-probe.sh was originally pushed to GitHub March 24 2022,
 there have been a few minor improvements since.
@@ -20,7 +20,7 @@ freebsd-update-probe.sh provides a work around for FreeBSD bug:
 
 ### Additional reading
 ```
-No point updates being available is confirmed hundreds of time faster on
+Confirmation of a lack of updates is confirmed hundreds of time faster on
 Raspberry Pi 3B using freebsd-update-probe.sh, this is demonstrated below
 (before/after).  IO bound hardware benefits greatly, results are far less
 dramatic for fast IO but the reduction of unnecessary activity is gained.
@@ -28,11 +28,11 @@ dramatic for fast IO but the reduction of unnecessary activity is gained.
 freebsd-update-probe.sh tests for a match between the current "tag" and
 the upstream "tag", /usr/sbin/freebsd-update generates the "tag" that is
 stored on disk and the "tag" from /usr/sbin/freebsd-update is authoritive.
+This "tag" file is probed by freebsd-update-probe.sh, hence the name.
 
-Why "probe"? It is comparing by "probing" freebsd-updates's files.
-
+Strictly speaking the updates mention above are point level updates.
 freebsd-update-probe.sh has no knowledge of a new RELEASE, which is also
-true for '/usr/sbin/freebsd-update fetch install'.  When a new RELEASE
+true for `/usr/sbin/freebsd-update fetch [install]`,  When a new RELEASE
 version is available it must be manually installed, updating to a new
 RELEASE is a distinct and deliberate action.
    https://docs.freebsd.org/en/books/handbook/ (search "update")
@@ -40,17 +40,20 @@ RELEASE is a distinct and deliberate action.
 
 # Usage
 ```
-No arguments.  Example usage:
+freebsd-update-probe.sh takes no arguments.
+Purpose:
+* Efficiently determine update availability.
+Example usage:
 # freebsd-update-probe.sh || freebsd-update fetch [install]
 # freebsd-update-probe.sh || mail_sysadmin_to_manually_update
 Notes:
-* When /usr/sbin/freebsd-update is run you *must* ensure it completes
-  successfully (exit 0) as freebsd-update-probe.sh relies on it.
 * Tested on FreeBSD 13.1, 13.0 (12.2 reported working)
 * Not for FreeBSD Jail environments
 * Not for non-RELEASE FreeBSD versions
 * Not for detecting new RELEASE versions
-Version: 20220521 ### https://github.com/-------/freebsd-update-probe 
+* When /usr/sbin/freebsd-update is run you *must* ensure it completes
+  successfully (exit 0) as freebsd-update-probe.sh relies on it.
+Version: 20220615 ### https://github.com/-------/freebsd-update-probe 
 ```
 
 # Exit codes
@@ -126,7 +129,8 @@ probe tag file: MATCH, no freebsd-update needed.
 # Important
 ```
 This is not only a reduction in time, freebsd-update-probe.sh bypasses
-the processing and IO spike that would otherwise occur for that duration.
+the processing and IO spike that would otherwise occur for that duration
+within `/usr/sbin/freebsd-update fetch [install]`
 
 Finally, I hope you find freebsd-update-probe.sh useful.
 ```

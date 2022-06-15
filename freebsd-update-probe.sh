@@ -44,17 +44,20 @@ fi
 
 if [ "$#" -ne 0 ] ; then
 	cat << EOF_usage
-No arguments.  Example usage:
+freebsd-update-probe.sh takes no arguments.
+Purpose:
+* Efficiently determine update availability.
+Example usage:
 # freebsd-update-probe.sh || freebsd-update fetch [install]
 # freebsd-update-probe.sh || mail_sysadmin_to_manually_update
 Notes:
-* When /usr/sbin/freebsd-update is run you *must* ensure it completes
-  successfully (exit 0) as freebsd-update-probe.sh relies on it.
 * Tested on FreeBSD 13.1, 13.0 (12.2 reported working)
 * Not for FreeBSD Jail environments
 * Not for non-RELEASE FreeBSD versions
 * Not for detecting new RELEASE versions
-Version: 20220521 ### https://github.com/-------/freebsd-update-probe 
+* When /usr/sbin/freebsd-update is run you *must* ensure it completes
+  successfully (exit 0) as freebsd-update-probe.sh relies on it.
+Version: 20220615 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
 fi
@@ -92,7 +95,7 @@ exit_1_clean () {
 	exit 1
 }
 
-# Paragraph of freebsd-update origin (renamed + $TEMPDIR_PROBE/.*.probe tweak)
+# Paragraph of freebsd-update origin (renamed + $TEMPDIR_PROBE/{latest.ssl,tag}.probe tweaks)
 obtain_tags () {
 	fetch -q http://${SERVERNAME}/${FETCHDIR}/latest.ssl \
 	    -o $TEMPDIR_PROBE/latest.ssl.probe || exit_1_clean
@@ -117,7 +120,7 @@ obtain_tags () {
 # History of what I proposed for freebsd-update (same technique):
 #   https://reviews.freebsd.org/D32570 
 #
-# Why "probe"? It is comparing by "probing" freebsd-updates's files.
+# Why "probe"?  Probe the tag file that belongs to /usr/sbin/freebsd-update
 probe_tags () {
 	if [ -f $TEMPDIR_PROBE/tag.probe -a -f ${FREEBSD_UPDATE_DIR}/tag ] && \
 	    cmp -s $TEMPDIR_PROBE/tag.probe ${FREEBSD_UPDATE_DIR}/tag; then

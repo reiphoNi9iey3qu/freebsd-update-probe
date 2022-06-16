@@ -53,7 +53,7 @@ Notes:
 * Not for detecting new RELEASE versions
 * When /usr/sbin/freebsd-update is run you *must* ensure it completes
   successfully (exit 0) as freebsd-update-probe.sh relies on it.
-Version: 20220615 ### https://github.com/-------/freebsd-update-probe 
+Version: 20220616 ### https://github.com/-------/freebsd-update-probe 
 ```
 
 # Exit codes

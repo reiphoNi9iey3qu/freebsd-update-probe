@@ -57,7 +57,7 @@ Notes:
 * Not for detecting new RELEASE versions
 * When /usr/sbin/freebsd-update is run you *must* ensure it completes
   successfully (exit 0) as freebsd-update-probe.sh relies on it.
-Version: 20220615 ### https://github.com/-------/freebsd-update-probe 
+Version: 20220616 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
 fi
@@ -91,7 +91,7 @@ SERVERNAME=`host -t srv _http._tcp.update.freebsd.org | sort -R | head -1 | awk 
 # diagnostic info *IF* that is necessary.
 exit_1_clean () {
 	rm -rf $TEMPDIR_PROBE
-	echo "probe tag file: CHECK, freebsd-update suggested."
+	echo "probe result: CHECK, freebsd-update suggested."
 	exit 1
 }
 
@@ -125,7 +125,7 @@ probe_tags () {
 	if [ -f $TEMPDIR_PROBE/tag.probe -a -f ${FREEBSD_UPDATE_DIR}/tag ] && \
 	    cmp -s $TEMPDIR_PROBE/tag.probe ${FREEBSD_UPDATE_DIR}/tag; then
 		rm -rf $TEMPDIR_PROBE
-		echo "probe tag file: MATCH, no freebsd-update needed."
+		echo "probe result: MATCH, no freebsd-update needed."
 		exit 0
 	else
 		exit_1_clean

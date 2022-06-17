@@ -38,7 +38,7 @@
 
 USER=`/usr/bin/whoami`
 if ! [ "$USER" = "root" ]; then
-   echo "Must be run by root"
+   echo "Notice: Must be run by root"
    exit 1
 fi
 
@@ -47,7 +47,9 @@ if [ "$#" -ne 0 ] ; then
 freebsd-update-probe.sh takes no arguments.
 Purpose:
 * Efficiently determine update availability.
-Example usage:
+Usage, initially test for any "Notice" messages: 
+# freebsd-update-probe.sh 
+Usage, after the initial run (normal usage):
 # freebsd-update-probe.sh || freebsd-update fetch [install]
 # freebsd-update-probe.sh || mail_sysadmin_to_manually_update
 Notes:
@@ -57,17 +59,15 @@ Notes:
 * Not for detecting new RELEASE versions
 * When /usr/sbin/freebsd-update is run you *must* ensure it completes
   successfully (exit 0) as freebsd-update-probe.sh relies on it.
-Version: 20220616 ### https://github.com/-------/freebsd-update-probe 
+Version: 20220617 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
 fi
 
-if ! [ `freebsd-version | grep '\-RELEASE$' | wc -l` = 1 ]; then
-	echo "freebsd-update-probe.sh \"compatability\":"
-	echo "`freebsd-version` is not a RELEASE version."
-	echo "FreeBSD RELEASE 13.0 & 13.1 (tested)"
-	echo "FreeBSD RELEASE 12.2 (reported working)"
-	echo "Feel free to edit this script to proceed but you're on your own."
+if ! [ `freebsd-version | grep '\-RELEASE' | wc -l` = 1 ]; then
+	echo "Notice: freebsd-update-probe.sh \"compatability\":"
+	echo "Notice: `freebsd-version` is not a RELEASE version."
+	echo "Note: Feel free to edit this script and proceed but you're on your own."
 	exit 1
 fi
 
@@ -94,6 +94,12 @@ exit_1_clean () {
 	echo "probe result: CHECK, freebsd-update suggested."
 	exit 1
 }
+
+# A fresh install of FreeBSD does not have an initial tag if it has
+# not yet run /usr/sbin/freebsd-update fetch [install]
+if ! [ -f $FREEBSD_UPDATE_DIR/tag ]; then
+		exit_1_clean
+fi
 
 # Paragraph of freebsd-update origin (renamed + $TEMPDIR_PROBE/{latest.ssl,tag}.probe tweaks)
 obtain_tags () {

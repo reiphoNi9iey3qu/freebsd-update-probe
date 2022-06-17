@@ -43,7 +43,9 @@ RELEASE is a distinct and deliberate action.
 freebsd-update-probe.sh takes no arguments.
 Purpose:
 * Efficiently determine update availability.
-Example usage:
+Usage, initially test for any "Notice" messages: 
+# freebsd-update-probe.sh 
+Usage, after the initial run (normal usage):
 # freebsd-update-probe.sh || freebsd-update fetch [install]
 # freebsd-update-probe.sh || mail_sysadmin_to_manually_update
 Notes:
@@ -53,10 +55,10 @@ Notes:
 * Not for detecting new RELEASE versions
 * When /usr/sbin/freebsd-update is run you *must* ensure it completes
   successfully (exit 0) as freebsd-update-probe.sh relies on it.
-Version: 20220616 ### https://github.com/-------/freebsd-update-probe 
+Version: 20220617 ### https://github.com/-------/freebsd-update-probe 
 ```
 
-# Exit codes
+# Exit codes (for normal usage, after the initial run)
 ```
 exit 0, MATCH, no freebsd-update needed.
 exit 1, CHECK, freebsd-update suggested.

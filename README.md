@@ -20,7 +20,7 @@ freebsd-update-probe.sh provides a work around for FreeBSD bug:
 
 ### Additional reading
 ```
-Confirmation of a lack of updates is confirmed hundreds of time faster on
+Confirmation of a lack of updates is reached hundreds of time faster on
 Raspberry Pi 3B using freebsd-update-probe.sh, this is demonstrated below
 (before/after).  IO bound hardware benefits greatly, results are far less
 dramatic for fast IO but the reduction of unnecessary activity is gained.

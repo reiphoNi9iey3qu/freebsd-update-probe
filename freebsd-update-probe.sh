@@ -53,13 +53,13 @@ Usage, after the initial run (normal usage):
 # freebsd-update-probe.sh || freebsd-update fetch [install]
 # freebsd-update-probe.sh || mail_sysadmin_to_manually_update
 Notes:
-* Tested on FreeBSD 13.1, 13.0 (12.2 reported working)
-* Not for FreeBSD Jail environments
-* Not for non-RELEASE FreeBSD versions
-* Not for detecting new RELEASE versions
 * When /usr/sbin/freebsd-update is run you *must* ensure it completes
   successfully (exit 0) as freebsd-update-probe.sh relies on it.
-Version: 20220617 ### https://github.com/-------/freebsd-update-probe 
+* Not for detecting new RELEASE versions
+* Not for non-RELEASE FreeBSD versions
+* Not for FreeBSD Jail environments
+* Tested on FreeBSD 13.1, 13.0 (12.3, 12.2 reported working)
+Version: 20220711 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
 fi

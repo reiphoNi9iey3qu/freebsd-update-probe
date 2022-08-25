@@ -75,31 +75,27 @@ ssh root@server.example.com "chmod 700 /usr/local/bin/freebsd-update-probe.sh"
 ```
 
 # Demonstration #1 with Slow IO. 
-## Raspberry Pi 3B:  1m32s down to sub 1s.
-### Before (Raspberry Pi 3B): 1m32s
+## Raspberry Pi 3B:  ~3m20s down to sub 1s.
+### Before (Raspberry Pi 3B): ~3m20s
 ```
-# date ; time freebsd-update fetch install ; date
-Sat Mar 26 08:41:00 NZDT 2022
+# /usr/bin/time freebsd-update fetch install
 src component not installed, skipped
 Looking up update.FreeBSD.org mirrors... 2 mirrors found.
-Fetching metadata signature for 13.0-RELEASE from update1.freebsd.org... done.
+Fetching metadata signature for 13.1-RELEASE from update2.freebsd.org... done.
 Fetching metadata index... done.
 Inspecting system... done.
 Preparing to download files... done.
 
-No updates needed to update system to 13.0-RELEASE-p10.
+No updates needed to update system to 13.1-RELEASE-p1.
 No updates are available to install.
-76.646u 22.863s 1:32.08 108.0%  22+170k 0+0io 0pf+0w
-Sat Mar 26 08:42:32 NZDT 2022
+      200.64 real       199.41 user         3.20 sys
 ```
 
 ### After (Raspberry Pi 3B): sub 1s
 ```
-# date ; time /root/freebsd-update-probe.sh || freebsd-update fetch install ; date
-Sat Mar 26 08:43:48 NZDT 2022
-probe tag file: MATCH, no freebsd-update needed.
-0.095u 0.103s 0:00.51 37.2%     96+171k 0+0io 0pf+0w
-Sat Mar 26 08:43:48 NZDT 2022
+# /usr/bin/time freebsd-update-probe.sh || /usr/bin/time freebsd-update fetch install
+probe result: MATCH, no freebsd-update needed.
+        0.51 real         0.08 user         0.14 sys
 ```
 
 

@@ -103,7 +103,7 @@ probe result: MATCH, no freebsd-update needed.
 ## SSD backed VM.  ~11s down to sub 1s
 ### Before (SSD backed VM): ~11s
 ```
-root@-------:~ # /usr/bin/time freebsd-update fetch install
+# /usr/bin/time freebsd-update fetch install
 src component not installed, skipped
 Looking up update.FreeBSD.org mirrors... 2 mirrors found.
 Fetching metadata signature for 13.1-RELEASE from update2.freebsd.org... done.
@@ -118,7 +118,7 @@ No updates are available to install.
 
 ### After (SSD backed VM): sub 1s
 ```
-root@-------:~ # /usr/bin/time freebsd-update-probe.sh || /usr/bin/time freebsd-update fetch install
+# /usr/bin/time freebsd-update-probe.sh || /usr/bin/time freebsd-update fetch install
 probe tag file: MATCH, no freebsd-update needed.
         0.40 real         0.04 user         0.02 sys
 ```

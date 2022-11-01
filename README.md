@@ -1,6 +1,6 @@
 # freebsd-update-probe.sh
 
-### Efficiently detect updates for /usr/sbin/freebsd-update
+## Efficiently detect updates for /usr/sbin/freebsd-update
 
 ### Summary
 ```
@@ -11,14 +11,56 @@ The IO intensive phase of /usr/sbin/freebsd-update should be reserved
 for when updates are available and freebsd-update-probe.sh was created
 to achieve this.
 
-freebsd-update-probe.sh was originally pushed to GitHub March 24 2022,
-there have been a few minor improvements since.
+This is not only a reduction in time, freebsd-update-probe.sh bypasses
+the processing and IO spike that would otherwise occur for that duration
+within `/usr/sbin/freebsd-update fetch [install]` , when no updates are
+available it only makes sense to avoid this.
 
 freebsd-update-probe.sh provides a work around for FreeBSD bug:
   https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=258863
+
+freebsd-update-probe.sh was originally pushed to GitHub March 24 2022,
+there have been a few minor improvements since.
+
+Finally, I hope you find freebsd-update-probe.sh useful.
 ```
 
-### Additional reading
+# Usage
+```
+Purpose:
+* Efficiently determine update availability.
+Usage:
+# freebsd-update-probe.sh || freebsd-update fetch [install]
+# freebsd-update-probe.sh || mail_sysadmin_to_manually_update
+Notes:
+* freebsd-update-probe.sh takes no arguments.
+* If you see "Notice" messages, attend to those.
+* When /usr/sbin/freebsd-update is run you *must* ensure it completes
+  successfully (exit 0) as freebsd-update-probe.sh relies on it.
+* Not for detecting new RELEASE versions
+* Not for non-RELEASE FreeBSD versions
+* Not for FreeBSD Jail environments
+* Tested on FreeBSD 13.1, 13.0 (12.3, 12.2 reported working)
+Version: 20221101 ### https://github.com/-------/freebsd-update-probe 
+```
+
+# Exit codes
+```
+exit 0, MATCH, no freebsd-update needed.
+exit 1, CHECK, freebsd-update suggested.
+```
+
+# Deploy examples
+```
+fetch https://raw.githubusercontent.com/-------/freebsd-update-probe/main/freebsd-update-probe.sh -o /usr/local/bin/freebsd-update-probe.sh
+chmod 700 /usr/local/bin/freebsd-update-probe.sh
+# Or
+fetch https://raw.githubusercontent.com/-------/freebsd-update-probe/main/freebsd-update-probe.sh -o freebsd-update-probe.sh
+scp freebsd-update-probe.sh root@server.example.com:/usr/local/bin/
+ssh root@server.example.com "chmod 700 /usr/local/bin/freebsd-update-probe.sh"
+```
+
+# Additional reading & Demonstrations
 ```
 Confirmation of a lack of updates is reached hundreds of time faster on
 Raspberry Pi 3B using freebsd-update-probe.sh, this is demonstrated below
@@ -38,44 +80,7 @@ RELEASE is a distinct and deliberate action.
    https://docs.freebsd.org/en/books/handbook/ (search "update")
 ```
 
-# Usage
-```
-freebsd-update-probe.sh takes no arguments.
-Purpose:
-* Efficiently determine update availability.
-Usage, initially test for any "Notice" messages: 
-# freebsd-update-probe.sh 
-Usage, after the initial run (normal usage):
-# freebsd-update-probe.sh || freebsd-update fetch [install]
-# freebsd-update-probe.sh || mail_sysadmin_to_manually_update
-Notes:
-* When /usr/sbin/freebsd-update is run you *must* ensure it completes
-  successfully (exit 0) as freebsd-update-probe.sh relies on it.
-* Not for detecting new RELEASE versions
-* Not for non-RELEASE FreeBSD versions
-* Not for FreeBSD Jail environments
-* Tested on FreeBSD 13.1, 13.0 (12.3, 12.2 reported working)
-Version: 20220711 ### https://github.com/-------/freebsd-update-probe 
-```
-
-# Exit codes (for normal usage, after the initial run)
-```
-exit 0, MATCH, no freebsd-update needed.
-exit 1, CHECK, freebsd-update suggested.
-```
-
-# Deploy examples
-```
-fetch https://raw.githubusercontent.com/-------/freebsd-update-probe/main/freebsd-update-probe.sh -o /usr/local/bin/freebsd-update-probe.sh
-chmod 700 /usr/local/bin/freebsd-update-probe.sh
-# Or
-fetch https://raw.githubusercontent.com/-------/freebsd-update-probe/main/freebsd-update-probe.sh -o freebsd-update-probe.sh
-scp freebsd-update-probe.sh root@server.example.com:/usr/local/bin/
-ssh root@server.example.com "chmod 700 /usr/local/bin/freebsd-update-probe.sh"
-```
-
-# Demonstration #1 with Slow IO. 
-## Raspberry Pi 3B:  ~3m20s down to sub 1s.
+## Demo #1 with Slow IO. 
 ### Before (Raspberry Pi 3B): ~3m20s
 ```
 # /usr/bin/time freebsd-update fetch install
@@ -99,8 +104,7 @@ probe result: MATCH, no freebsd-update needed.
 ```
 
 
-# Demonstration #2 with Fast IO. 
-## SSD backed VM.  ~11s down to sub 1s
+## Demo #2 with Fast IO. 
 ### Before (SSD backed VM): ~11s
 ```
 # /usr/bin/time freebsd-update fetch install
@@ -123,12 +127,3 @@ probe tag file: MATCH, no freebsd-update needed.
         0.40 real         0.04 user         0.02 sys
 ```
 
-
-# Important
-```
-This is not only a reduction in time, freebsd-update-probe.sh bypasses
-the processing and IO spike that would otherwise occur for that duration
-within `/usr/sbin/freebsd-update fetch [install]`
-
-Finally, I hope you find freebsd-update-probe.sh useful.
-```

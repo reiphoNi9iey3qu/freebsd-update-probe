@@ -1,5 +1,16 @@
 # freebsd-update-probe.sh
 
+### Foreword
+```
+The community surrounding the FreeBSD project is hostile, in their own
+weak way (banned from the forums for not kowtowing to their clique).
+Technically, glaring subpar performance aspects are left in place (as
+illustrated below).
+
+I do not recommend FreeBSD and rate it as a "Hobby OS".
+(March 2023, maybe one day I can change my mind)
+```
+
 ## Efficiently detect updates for /usr/sbin/freebsd-update
 
 ### Summary

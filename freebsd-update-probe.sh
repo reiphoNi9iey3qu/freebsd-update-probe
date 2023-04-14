@@ -57,8 +57,8 @@ Notes:
 * Not for detecting new RELEASE versions
 * Not for non-RELEASE FreeBSD versions
 * Not for FreeBSD Jail environments
-* Tested on FreeBSD 13.1, 13.0 (12.3, 12.2 reported working)
-Version: 20221101 ### https://github.com/-------/freebsd-update-probe 
+* Tested on FreeBSD 13.2, 13.1, 13.0 (12.3, 12.2 reported working)
+Version: 20230414 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
 fi

@@ -83,7 +83,7 @@ the upstream "tag", /usr/sbin/freebsd-update generates the "tag" that is
 stored on disk and the "tag" from /usr/sbin/freebsd-update is authoritive.
 This "tag" file is probed by freebsd-update-probe.sh, hence the name.
 
-Strictly speaking the updates mention above are point level updates.
+Strictly speaking the updates mentioned above are point level updates.
 freebsd-update-probe.sh has no knowledge of a new RELEASE, which is also
 true for `/usr/sbin/freebsd-update fetch [install]`,  When a new RELEASE
 version is available it must be manually installed, updating to a new

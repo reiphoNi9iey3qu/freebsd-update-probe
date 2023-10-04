@@ -70,11 +70,59 @@ fetch https://raw.githubusercontent.com/-------/freebsd-update-probe/main/freebs
 scp freebsd-update-probe.sh root@server.example.com:/usr/local/bin/
 ssh root@server.example.com "chmod 700 /usr/local/bin/freebsd-update-probe.sh"
 ```
+# Demonstrations
 
-# Additional reading & Demonstrations
+## Demo #1 with Slow IO (Raspberry Pi 3B)
+### Before: 3m20s
+```
+# /usr/bin/time freebsd-update fetch install
+src component not installed, skipped
+Looking up update.FreeBSD.org mirrors... 2 mirrors found.
+Fetching metadata signature for 13.1-RELEASE from update2.freebsd.org... done.
+Fetching metadata index... done.
+Inspecting system... done.
+Preparing to download files... done.
+
+No updates needed to update system to 13.1-RELEASE-p1.
+No updates are available to install.
+      200.64 real       199.41 user         3.20 sys
+```
+
+### After: sub 1s
+```
+# /usr/bin/time freebsd-update-probe.sh || /usr/bin/time freebsd-update fetch install
+probe result: MATCH, no freebsd-update needed.
+        0.51 real         0.08 user         0.14 sys
+```
+
+
+## Demo #2 with Fast IO (SSD backed VM)
+### Before: 11s
+```
+# /usr/bin/time freebsd-update fetch install
+src component not installed, skipped
+Looking up update.FreeBSD.org mirrors... 2 mirrors found.
+Fetching metadata signature for 13.1-RELEASE from update2.freebsd.org... done.
+Fetching metadata index... done.
+Inspecting system... done.
+Preparing to download files... done.
+
+No updates needed to update system to 13.1-RELEASE-p0.
+No updates are available to install.
+       10.89 real        10.04 user         0.37 sys
+```
+
+### After: sub 1s
+```
+# /usr/bin/time freebsd-update-probe.sh || /usr/bin/time freebsd-update fetch install
+probe tag file: MATCH, no freebsd-update needed.
+        0.40 real         0.04 user         0.02 sys
+```
+
+# Additional reading
 ```
 Confirmation of a lack of updates is reached hundreds of time faster on
-Raspberry Pi 3B using freebsd-update-probe.sh, this is demonstrated below
+Raspberry Pi 3B using freebsd-update-probe.sh, this is demonstrated above
 (before/after).  IO bound hardware benefits greatly, results are far less
 dramatic for fast IO but the reduction of unnecessary activity is gained.
 
@@ -90,51 +138,3 @@ version is available it must be manually installed, updating to a new
 RELEASE is a distinct and deliberate action.
    https://docs.freebsd.org/en/books/handbook/ (search "update")
 ```
-
-## Demo #1 with Slow IO. 
-### Before (Raspberry Pi 3B): ~3m20s
-```
-# /usr/bin/time freebsd-update fetch install
-src component not installed, skipped
-Looking up update.FreeBSD.org mirrors... 2 mirrors found.
-Fetching metadata signature for 13.1-RELEASE from update2.freebsd.org... done.
-Fetching metadata index... done.
-Inspecting system... done.
-Preparing to download files... done.
-
-No updates needed to update system to 13.1-RELEASE-p1.
-No updates are available to install.
-      200.64 real       199.41 user         3.20 sys
-```
-
-### After (Raspberry Pi 3B): sub 1s
-```
-# /usr/bin/time freebsd-update-probe.sh || /usr/bin/time freebsd-update fetch install
-probe result: MATCH, no freebsd-update needed.
-        0.51 real         0.08 user         0.14 sys
-```
-
-
-## Demo #2 with Fast IO. 
-### Before (SSD backed VM): ~11s
-```
-# /usr/bin/time freebsd-update fetch install
-src component not installed, skipped
-Looking up update.FreeBSD.org mirrors... 2 mirrors found.
-Fetching metadata signature for 13.1-RELEASE from update2.freebsd.org... done.
-Fetching metadata index... done.
-Inspecting system... done.
-Preparing to download files... done.
-
-No updates needed to update system to 13.1-RELEASE-p0.
-No updates are available to install.
-       10.89 real        10.04 user         0.37 sys
-```
-
-### After (SSD backed VM): sub 1s
-```
-# /usr/bin/time freebsd-update-probe.sh || /usr/bin/time freebsd-update fetch install
-probe tag file: MATCH, no freebsd-update needed.
-        0.40 real         0.04 user         0.02 sys
-```
-

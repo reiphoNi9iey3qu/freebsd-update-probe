@@ -57,8 +57,9 @@ Notes:
 * Not for detecting new RELEASE versions
 * Not for non-RELEASE FreeBSD versions
 * Not for FreeBSD Jail environments
-* Tested on FreeBSD 13.2, 13.1, 13.0 (12.3, 12.2 reported working)
-Version: 20230414 ### https://github.com/-------/freebsd-update-probe 
+* Tested on FreeBSD 14.0, 13.2, 13.1, 13.0
+* Reported working on FreeBSD 12.3, 12.2
+Version: 20231122 ### https://github.com/-------/freebsd-update-probe 
 EOF_usage
 	exit 1
 fi
@@ -107,8 +108,10 @@ obtain_tags () {
 	if ! [ -r $TEMPDIR_PROBE/latest.ssl.probe ]; then
 		exit_1_clean
 	fi
+        # /usr/sbin/freebsd-update still uses openssl rsautl
+        # with 14.0-RELEASE, suppress warning too (follow suit)
 	openssl rsautl -pubin -inkey ${FREEBSD_UPDATE_DIR}/pub.ssl -verify \
-		< $TEMPDIR_PROBE/latest.ssl.probe > $TEMPDIR_PROBE/tag.probe || exit_1_clean
+	        < $TEMPDIR_PROBE/latest.ssl.probe > $TEMPDIR_PROBE/tag.probe 2>/dev/null || exit_1_clean
 	if ! [ `wc -l < $TEMPDIR_PROBE/tag.probe` = 1 ] ||
 		! grep -qE \
 		"^freebsd-update\|${ARCH}\|${RELNUM}\|[0-9]+\|[0-9a-f]{64}\|[0-9]{10}" \

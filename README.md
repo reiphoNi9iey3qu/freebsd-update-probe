@@ -40,9 +40,9 @@ Notes:
 * Not for detecting new RELEASE versions
 * Not for non-RELEASE FreeBSD versions
 * Not for FreeBSD Jail environments
-* Tested on FreeBSD 14.0, 13.2, 13.1, 13.0
+* Tested on FreeBSD 14.1, 14.0, 13.2, 13.1, 13.0
 * Reported working on FreeBSD 12.3, 12.2
-Version: 20231122 ### https://github.com/-------/freebsd-update-probe 
+Version: 20240819 ### https://github.com/-------/freebsd-update-probe
 ```
 
 # Exit codes
@@ -123,7 +123,7 @@ This "tag" file is probed by freebsd-update-probe.sh, hence the name.
 
 Strictly speaking the updates mentioned above are point level updates.
 freebsd-update-probe.sh has no knowledge of a new RELEASE, which is also
-true for `/usr/sbin/freebsd-update fetch [install]`,  When a new RELEASE
+true for `/usr/sbin/freebsd-update fetch [install]`.  When a new RELEASE
 version is available it must be manually installed, updating to a new
 RELEASE is a distinct and deliberate action.
    https://docs.freebsd.org/en/books/handbook/ (search "update")

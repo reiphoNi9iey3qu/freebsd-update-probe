@@ -40,9 +40,9 @@ Notes:
 * Not for detecting new RELEASE versions
 * Not for non-RELEASE FreeBSD versions
 * Not for FreeBSD Jail environments
-* Tested on FreeBSD 14.1, 14.0, 13.2, 13.1, 13.0
+* Tested on FreeBSD 14.2, 14.1, 14.0, 13.4, 13.3, 13.2, 13.1, 13.0
 * Reported working on FreeBSD 12.3, 12.2
-Version: 20240819 ### https://github.com/-------/freebsd-update-probe
+Version: 20241206 ### https://github.com/-------/freebsd-update-probe
 ```
 
 # Exit codes

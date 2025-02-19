@@ -2,7 +2,7 @@
 
 # BSD 2-Clause License
 # 
-# Copyright (c) 2022, https://github.com/------- || ------- @ FreeBSD Forums
+# Copyright (c) 2022, https://github.com/reiphoNi9iey3qu
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,8 @@ Notes:
 * Not for FreeBSD Jail environments
 * Tested on FreeBSD 14.2, 14.1, 14.0, 13.4, 13.3, 13.2, 13.1, 13.0
 * Reported working on FreeBSD 12.3, 12.2
-Version: 20241206 ### https://github.com/-------/freebsd-update-probe
+Version: 20250219
+## https://github.com/reiphoNi9iey3qu/freebsd-update-probe
 EOF_usage
 	exit 1
 fi

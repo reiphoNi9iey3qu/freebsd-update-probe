@@ -42,7 +42,8 @@ Notes:
 * Not for FreeBSD Jail environments
 * Tested on FreeBSD 14.2, 14.1, 14.0, 13.4, 13.3, 13.2, 13.1, 13.0
 * Reported working on FreeBSD 12.3, 12.2
-Version: 20241206 ### https://github.com/-------/freebsd-update-probe
+Version: 20250219
+## https://github.com/reiphoNi9iey3qu/freebsd-update-probe
 ```
 
 # Exit codes
@@ -53,10 +54,10 @@ exit 1, CHECK, freebsd-update suggested.
 
 # Deploy examples
 ```
-fetch https://raw.githubusercontent.com/-------/freebsd-update-probe/main/freebsd-update-probe.sh -o /usr/local/bin/freebsd-update-probe.sh
+fetch https://raw.githubusercontent.com/reiphoNi9iey3qu/freebsd-update-probe/main/freebsd-update-probe.sh -o /usr/local/bin/freebsd-update-probe.sh
 chmod 700 /usr/local/bin/freebsd-update-probe.sh
 # Or
-fetch https://raw.githubusercontent.com/-------/freebsd-update-probe/main/freebsd-update-probe.sh -o freebsd-update-probe.sh
+fetch https://raw.githubusercontent.com/reiphoNi9iey3qu/freebsd-update-probe/main/freebsd-update-probe.sh -o freebsd-update-probe.sh
 scp freebsd-update-probe.sh root@server.example.com:/usr/local/bin/
 ssh root@server.example.com "chmod 700 /usr/local/bin/freebsd-update-probe.sh"
 ```

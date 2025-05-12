@@ -20,7 +20,7 @@ freebsd-update-probe.sh provides a work around for FreeBSD bug:
   https://bugs.freebsd.org/bugzilla/show_bug.cgi?id=258863
 
 freebsd-update-probe.sh was originally pushed to GitHub March 24 2022,
-there have been a few minor improvements since.
+there have been a few minor improvements since.  See Version below.
 
 Finally, I hope you find freebsd-update-probe.sh useful.
 ```
@@ -40,9 +40,10 @@ Notes:
 * Not for detecting new RELEASE versions
 * Not for non-RELEASE FreeBSD versions
 * Not for FreeBSD Jail environments
-* Tested on FreeBSD 14.2, 14.1, 14.0, 13.4, 13.3, 13.2, 13.1, 13.0
+* Tested on FreeBSD 14.2, 14.1, 14.0
+* Tested on FreeBSD 13.5, 13.4, 13.3, 13.2, 13.1, 13.0
 * Reported working on FreeBSD 12.3, 12.2
-Version: 20250219
+Version: 20250512
 ## https://github.com/reiphoNi9iey3qu/freebsd-update-probe
 ```
 

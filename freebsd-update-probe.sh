@@ -57,10 +57,10 @@ Notes:
 * Not for detecting new RELEASE versions
 * Not for non-RELEASE FreeBSD versions
 * Not for FreeBSD Jail environments
-* Tested on FreeBSD 14.2, 14.1, 14.0
+* Tested on FreeBSD 14.3, 14.2, 14.1, 14.0
 * Tested on FreeBSD 13.5, 13.4, 13.3, 13.2, 13.1, 13.0
 * Reported working on FreeBSD 12.3, 12.2
-Version: 20250512
+Version: 20250706
 ## https://github.com/reiphoNi9iey3qu/freebsd-update-probe
 EOF_usage
 	exit 1
@@ -93,7 +93,7 @@ SERVERNAME=`host -t srv _http._tcp.update.freebsd.org | sort -R | head -1 | awk 
 # diagnostic info *IF* that is necessary.
 exit_1_clean () {
 	rm -rf $TEMPDIR_PROBE
-	echo "probe result: CHECK, freebsd-update suggested."
+	echo "probe result: CHECK, freebsd-update fetch [install] suggested"
 	exit 1
 }
 
@@ -135,7 +135,7 @@ probe_tags () {
 	if [ -f $TEMPDIR_PROBE/tag.probe -a -f ${FREEBSD_UPDATE_DIR}/tag ] && \
 	    cmp -s $TEMPDIR_PROBE/tag.probe ${FREEBSD_UPDATE_DIR}/tag; then
 		rm -rf $TEMPDIR_PROBE
-		echo "probe result: MATCH, no freebsd-update needed."
+		echo "probe result: MATCH, freebsd-update fetch not needed"
 		exit 0
 	else
 		exit_1_clean

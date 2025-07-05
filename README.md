@@ -40,25 +40,25 @@ Notes:
 * Not for detecting new RELEASE versions
 * Not for non-RELEASE FreeBSD versions
 * Not for FreeBSD Jail environments
-* Tested on FreeBSD 14.2, 14.1, 14.0
+* Tested on FreeBSD 14.3, 14.2, 14.1, 14.0
 * Tested on FreeBSD 13.5, 13.4, 13.3, 13.2, 13.1, 13.0
 * Reported working on FreeBSD 12.3, 12.2
-Version: 20250512
+Version: 20250706
 ## https://github.com/reiphoNi9iey3qu/freebsd-update-probe
 ```
 
 # Exit codes
 ```
-exit 0, MATCH, no freebsd-update needed.
-exit 1, CHECK, freebsd-update suggested.
+exit 0, MATCH, freebsd-update fetch not needed
+exit 1, CHECK, freebsd-update fetch [install] suggested
 ```
 
 # Deploy examples
 ```
-fetch https://raw.githubusercontent.com/reiphoNi9iey3qu/freebsd-update-probe/main/freebsd-update-probe.sh -o /usr/local/bin/freebsd-update-probe.sh
+fetch https://raw.githubusercontent.com/reiphoNi9iey3qu/freebsd-update-probe/refs/heads/master/freebsd-update-probe.sh -o /usr/local/bin/freebsd-update-probe.sh
 chmod 700 /usr/local/bin/freebsd-update-probe.sh
 # Or
-fetch https://raw.githubusercontent.com/reiphoNi9iey3qu/freebsd-update-probe/main/freebsd-update-probe.sh -o freebsd-update-probe.sh
+fetch https://raw.githubusercontent.com/reiphoNi9iey3qu/freebsd-update-probe/refs/heads/master/freebsd-update-probe.sh -o freebsd-update-probe.sh
 scp freebsd-update-probe.sh root@server.example.com:/usr/local/bin/
 ssh root@server.example.com "chmod 700 /usr/local/bin/freebsd-update-probe.sh"
 ```
@@ -83,7 +83,7 @@ No updates are available to install.
 ### After: sub 1s
 ```
 # /usr/bin/time freebsd-update-probe.sh || /usr/bin/time freebsd-update fetch install
-probe result: MATCH, no freebsd-update needed.
+probe result: MATCH, freebsd-update fetch not needed
         0.51 real         0.08 user         0.14 sys
 ```
 
@@ -107,7 +107,7 @@ No updates are available to install.
 ### After: sub 1s
 ```
 # /usr/bin/time freebsd-update-probe.sh || /usr/bin/time freebsd-update fetch install
-probe tag file: MATCH, no freebsd-update needed.
+probe tag file: MATCH, freebsd-update fetch not needed
         0.40 real         0.04 user         0.02 sys
 ```
 

@@ -40,6 +40,8 @@ Notes:
 * Not for detecting new RELEASE versions
 * Not for non-RELEASE FreeBSD versions
 * Not for FreeBSD Jail environments
+* Not for FreeBSD 15 installed using pkgbase
+* Tested on FreeBSD 15.0 (with Distribution Sets)
 * Tested on FreeBSD 14.3, 14.2, 14.1, 14.0
 * Tested on FreeBSD 13.5, 13.4, 13.3, 13.2, 13.1, 13.0
 * Reported working on FreeBSD 12.3, 12.2
